@@ -1,9 +1,7 @@
-
+# streamlit_prediccion_vuelos.py
 import streamlit as st
 import pandas as pd
 import joblib
-
-# Cargar modelo pipeline entrenado
 import gdown
 
 # Descargar modelo desde Google Drive
@@ -11,14 +9,15 @@ url = "https://drive.google.com/uc?id=1-WfkwXzHs1xJMZSOZM1bo5YSMe1TV5Rg"
 output = "modelo_knn_pipeline.pkl"
 gdown.download(url, output, quiet=False)
 
-# Cargar modelo descargado
+# Cargar modelo
 model = joblib.load(output)
 
+# Configuración de la app
 st.set_page_config(page_title="¿Se va a demorar mi vuelo?", layout="centered")
 st.title("✈️ Predicción de Demoras de Vuelo con KNN")
 st.markdown("Complete la información del vuelo para predecir si se espera una demora mayor a 15 minutos.")
 
-# Formulario
+# Formulario de entrada
 month = st.selectbox("Mes", list(range(1, 13)))
 day_of_week = st.selectbox("Día de la semana", [1, 2, 3, 4, 5, 6, 7], format_func=lambda x: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"][x-1])
 latitude = st.number_input("Latitud", value=40.6)
@@ -26,6 +25,7 @@ longitude = st.number_input("Longitud", value=-73.8)
 prcp = st.number_input("Precipitación (PRCP)", value=0.0)
 dep_time_blk = st.selectbox("Bloque horario de salida", ['0500-0559', '0600-0659', '0700-0759', '0800-0859', '0900-0959'])
 
+# Predicción
 if st.button("¿Se va a demorar?"):
     nuevo_vuelo = pd.DataFrame({
         'MONTH': [month],
