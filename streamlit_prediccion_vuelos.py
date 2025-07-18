@@ -4,7 +4,15 @@ import pandas as pd
 import joblib
 
 # Cargar modelo pipeline entrenado
-model = joblib.load("modelo_knn_pipeline.pkl")  # debe estar en la misma carpeta
+import gdown
+
+# Descargar modelo desde Google Drive
+url = "https://drive.google.com/uc?id=1-WfkwXzHs1xJMZSOZM1bo5YSMe1TV5Rg"
+output = "modelo_knn_pipeline.pkl"
+gdown.download(url, output, quiet=False)
+
+# Cargar modelo descargado
+model = joblib.load(output)
 
 st.set_page_config(page_title="¿Se va a demorar mi vuelo?", layout="centered")
 st.title("✈️ Predicción de Demoras de Vuelo con KNN")
