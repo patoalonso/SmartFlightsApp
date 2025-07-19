@@ -2,12 +2,11 @@
 import streamlit as st
 import pandas as pd
 import cloudpickle
-import gdown
+import cloudpickle
 
-# Descargar modelo desde Google Drive
-url = "https://drive.google.com/uc?id=1-WfkwXzHs1xJMZSOZM1bo5YSMe1TV5Rg"
-output = "modelo_knn_pipeline.pkl"
-gdown.download(url, output, quiet=False)
+# Cargar modelo local
+with open("modelo_knn_pipeline.pkl", "rb") as f:
+    model = cloudpickle.load(f)
 
 # Cargar modelo con cloudpickle
 with open(output, "rb") as f:
