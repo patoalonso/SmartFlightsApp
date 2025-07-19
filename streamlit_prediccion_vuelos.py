@@ -1,9 +1,15 @@
 import streamlit as st
 import pandas as pd
 import cloudpickle
+import gdown
 
-# Cargar modelo local
-with open("modelo_knn_pipeline.pkl", "rb") as f:
+# Descargar modelo desde Google Drive
+url = "https://drive.google.com/uc?id=1-WfkwXzHs1xJMZSOZM1bo5YSMe1TV5Rg"
+output = "modelo_knn_pipeline.pkl"
+gdown.download(url, output, quiet=False)
+
+# Cargar modelo
+with open(output, "rb") as f:
     model = cloudpickle.load(f)
 
 # Configuración de la app
@@ -12,11 +18,18 @@ st.title("✈️ Predicción de Demoras de Vuelo con KNN")
 st.markdown("Complete los datos del vuelo para saber si tendrá una demora mayor a 15 minutos.")
 
 # Formulario
-carrier = st.selectbox("Compañía aérea", ['American Airlines Inc.', 'United Air Lines Inc.', 'Delta Air Lines Inc.'])  # Podés ajustar valores
-airport = st.selectbox("Aeropuerto de salida", ['JFK', 'LGA', 'EWR'])  # Podés ajustar valores
+carrier = st.selectbox("Compañía aérea", [
+    'American Airlines Inc.', 
+    'United Air Lines Inc.', 
+    'Delta Air Lines Inc.'
+])
+airport = st.selectbox("Aeropuerto de salida", ['JFK', 'LGA', 'EWR'])
 month = st.selectbox("Mes", list(range(1, 13)))
-day_of_week = st.selectbox("Día de la semana", [1, 2, 3, 4, 5, 6, 7], format_func=lambda x: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"][x-1])
-dep_time_blk = st.selectbox("Bloque horario de salida", ['0500-0559', '0600-0659', '0700-0759', '0800-0859', '0900-0959'])
+day_of_week = st.selectbox("Día de la semana", [1, 2, 3, 4, 5, 6, 7],
+    format_func=lambda x: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"][x-1])
+dep_time_blk = st.selectbox("Bloque horario de salida", [
+    '0500-0559', '0600-0659', '0700-0759', '0800-0859', '0900-0959'
+])
 
 # Predicción
 if st.button("¿Se va a demorar?"):
