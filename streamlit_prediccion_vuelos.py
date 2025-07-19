@@ -2,14 +2,9 @@
 import streamlit as st
 import pandas as pd
 import cloudpickle
-import cloudpickle
 
-# Cargar modelo local
+# Cargar modelo directamente desde archivo local
 with open("modelo_knn_pipeline.pkl", "rb") as f:
-    model = cloudpickle.load(f)
-
-# Cargar modelo con cloudpickle
-with open(output, "rb") as f:
     model = cloudpickle.load(f)
 
 # Configuración de la app
