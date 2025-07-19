@@ -3,16 +3,16 @@ import streamlit as st
 import pandas as pd
 import cloudpickle
 
-# Cargar modelo directamente desde archivo local
+# Cargar modelo local
 with open("modelo_knn_pipeline.pkl", "rb") as f:
     model = cloudpickle.load(f)
 
-# Configuración de la app
+# Interfaz
 st.set_page_config(page_title="¿Se va a demorar mi vuelo?", layout="centered")
 st.title("✈️ Predicción de Demoras de Vuelo con KNN")
 st.markdown("Complete la información del vuelo para predecir si se espera una demora mayor a 15 minutos.")
 
-# Formulario de entrada
+# Formulario
 month = st.selectbox("Mes", list(range(1, 13)))
 day_of_week = st.selectbox("Día de la semana", [1, 2, 3, 4, 5, 6, 7], format_func=lambda x: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"][x-1])
 latitude = st.number_input("Latitud", value=40.6)
