@@ -1,7 +1,7 @@
 # streamlit_prediccion_vuelos.py
 import streamlit as st
 import pandas as pd
-import joblib
+import cloudpickle
 import gdown
 
 # Descargar modelo desde Google Drive
@@ -9,8 +9,9 @@ url = "https://drive.google.com/uc?id=1-WfkwXzHs1xJMZSOZM1bo5YSMe1TV5Rg"
 output = "modelo_knn_pipeline.pkl"
 gdown.download(url, output, quiet=False)
 
-# Cargar modelo
-model = joblib.load(output)
+# Cargar modelo con cloudpickle
+with open(output, "rb") as f:
+    model = cloudpickle.load(f)
 
 # Configuración de la app
 st.set_page_config(page_title="¿Se va a demorar mi vuelo?", layout="centered")
