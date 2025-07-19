@@ -41,4 +41,3 @@ Estas variables fueron seleccionadas por ser fácilmente interpretables por los 
 ```bash
 git clone https://github.com/tu_usuario/SmartFlightsApp.git
 cd SmartFlightsApp
-
