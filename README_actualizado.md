@@ -1,4 +1,5 @@
 ✈️ Smart Flights App
+
 Esta aplicación permite predecir si un vuelo sufrirá una demora mayor a 15 minutos usando un modelo KNN entrenado con datos históricos de vuelos y condiciones de operación.
 
 📌 Variables utilizadas en el modelo
